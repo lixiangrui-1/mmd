@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMD</title>
+  </head>
+  <body>
+    <div id="app">123</div>
+    <script src="/ammo.wasm.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+
+    <script>
+      const moduleLoad = (state) => new CustomEvent('moduleLoad', {
+        detail: {
+          load: state
+        }
+      })
+      window.onload = function () {
+        window.Ammo().then(res => {
+          window.Ammo = res
+          window.dispatchEvent(moduleLoad(true))
+        }).catch(() => {
+          window.dispatchEvent(moduleLoad(false))
+        })
+      }
+    </script>
+  </body>
+</html>
